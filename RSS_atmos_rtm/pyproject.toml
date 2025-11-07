@@ -1,0 +1,67 @@
+[build-system]
+build-backend = "maturin"
+requires = ["maturin>=1.0,<2.0"]
+
+[project]
+name = "rss_atmos_rtm"
+requires-python = ">=3.10"
+version = "0.3.1"
+
+dependencies = [
+  "cdsapi",
+  "netCDF4",
+  "numpy",
+]
+
+authors = [
+  {name = "Richard Lindsley", email = "lindsley@remss.com"},
+  {name = "Carl Mears", email = "mears@remss.com"},
+]
+classifiers = [
+  "Programming Language :: Rust",
+  "Programming Language :: Python :: Implementation :: CPython",
+]
+
+[project.urls]
+repository = "http://github.com/CarlMears/RSS_atmos_rtm"
+
+[tool.maturin]
+python-source = "python"
+
+[[tool.mypy.overrides]]
+ignore_missing_imports = true
+module = "netCDF4"
+
+[[tool.mypy.overrides]]
+ignore_missing_imports = true
+module = "cdsapi"
+
+[tool.ruff.lint]
+ignore = [
+  "ANN101", # Missing type annotation for `self` in method
+  "UP007", # Use `X | Y` for type annotations
+  "PYI021", # Docstrings should not be included in stubs
+]
+select = [
+  "E", # pycodestyle
+  "F", # pyflakes
+  "I", # isort
+  "D", # pydocstyle
+  "UP", # pyupgrade
+  "YTT", # flake8-2020
+  "ANN", # flake8-annotations
+  "S", # flake8-bandit
+  "BLE", # flake8-blindexcept
+  "B", # flake8-bugbear
+  "EXE", # flake8-executable
+  "PIE", # flake8-pie
+  "PYI", # flake8-pyi
+  "PTH", # flake8-use-pathlib
+  "NPY", # numpy-specific rules
+]
+
+[tool.ruff.lint.per-file-ignores]
+# "Missing docstring in public module", "public class", "public method", and
+# "public function" conflicts with PYI021, "Docstrings should not be included in
+# stubs".
+"*.pyi" = ["D100", "D101", "D102", "D103", "PYI053"]

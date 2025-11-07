@@ -1,0 +1,22 @@
+[build-system]
+build-backend = 'mesonpy'
+requires = ['meson-python', 'numpy']
+
+[project]
+authors = [{name = "Carl Mears", email = "mears@remss.com"}]
+name = "RSS_surf_emiss"
+version = "0.0.1"
+
+dependencies = [
+  "numpy",
+]
+requires-python = ">=3.9"
+
+[project.urls]
+Repository = "http://gitlab.remss.com/access/geomod10_python_wrapper"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+geomod10 = ["*.f90","data/*"]

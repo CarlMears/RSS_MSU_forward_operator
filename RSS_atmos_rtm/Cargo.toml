@@ -1,0 +1,39 @@
+[package]
+name = "rss_atmos_rtm"
+version = "0.3.1"
+
+edition = "2021"
+rust-version = "1.74"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+crate-type = ["cdylib"]
+name = "rss_atmos_rtm"
+
+[dependencies]
+log = "0.4.22"
+ndarray = "0.16.1"
+num-complex = "0.4.6"
+numpy = "0.23.0"
+pyo3 = { version = "0.23.2", features = ["extension-module"] }
+pyo3-log = "0.12.0"
+rayon = "1.10.0"
+smallvec = "1.13.2"
+
+[dev-dependencies]
+approx = "0.5.1"
+
+[features]
+abi3 = ["pyo3/abi3-py310", "generate-import-lib"]
+generate-import-lib = ["pyo3/generate-import-lib"]
+
+[profile.dev]
+opt-level = 1
+
+[profile.release]
+codegen-units = 1
+
+[lints.rust]
+rust_2018_idioms = "warn"
+missing_debug_implementations = "warn"
+missing_docs = "warn"
