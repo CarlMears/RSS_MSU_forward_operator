@@ -37,6 +37,7 @@ from rss_plotting.global_map import plot_global_map
 import matplotlib.pyplot as plt
 
 from era5 import era5_monthly_files,read_era5_data_monthly
+from check_model_data import check_model_data
 
 def log_model_files(input_files):
     logging.info(f'land frac file: {input_files["land_frac"]}')
@@ -70,7 +71,6 @@ logging.basicConfig(style="{", format=log_fmt, datefmt=log_datefmt, level=log_le
 
 months_to_do = list(range(1, 13))
 for month in months_to_do:
-
     input_files = era5_monthly_files(year_to_do, month, path_to_era5)
     log_model_files(input_files)
     
@@ -81,7 +81,9 @@ for month in months_to_do:
     logging.info(f'Output file: {output_file}')
 
     print(f'Computing Tbs for {year_to_do}-{month:02d}')
-    model_data = read_era5_data_monthly(input_files)
+    model_data = read_era5_data_monthly(input_files) 
+
+    result = check_model_data(model_data, verbose=True)
 
     msu2_tbs = forward_operator_msu2.compute_tbs(model_data)
     tbs_TMT = msu2_tbs['tbs_TMT']

@@ -210,6 +210,7 @@ def read_era5_data_monthly(
     specific_humidity = np.flip(specific_humidity,3).copy()
     height = np.flip(height,3).copy()
     liquid_content = np.flip(liquid_content,3).copy()
+    liquid_content[liquid_content < 0] = 0.0  # ensure no negative cloud liquid water content
 
     year = input_files['year']
     month = input_files['month']
